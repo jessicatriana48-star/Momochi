@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Admin · Momochi 🍡</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #3DBE6E;
+  --green-dark: #2a9e54;
+  --green-light: #e8f9ef;
+  --text: #1a2e1f;
+  --text-light: #5a7a62;
+  --radius: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #f0faf4;
+  color: var(--text);
+  min-height: 100vh;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ── LOGIN ── */
+#loginScreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+#loginScreen.hide { display: none; }
+
+.login-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px 28px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 8px 32px rgba(61,190,110,0.15);
+  text-align: center;
+}
+.login-logo { font-family: 'Pacifico', cursive; font-size: 32px; color: var(--green); margin-bottom: 4px; }
+.login-sub { font-size: 13px; font-weight: 700; color: var(--text-light); margin-bottom: 28px; }
+.login-label { display: block; text-align: left; font-size: 13px; font-weight: 800; margin-bottom: 8px; }
+.login-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e0ede4;
+  border-radius: 13px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 6px;
+  color: var(--text);
+  outline: none;
+  margin-bottom: 16px;
+  -webkit-appearance: none;
+}
+.login-input:focus { border-color: var(--green); }
+.login-btn {
+  width: 100%;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 13px;
+  padding: 15px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(61,190,110,0.35);
+}
+.login-btn:active { opacity: 0.85; }
+.login-err { color: #e05555; font-size: 13px; font-weight: 700; margin-top: 10px; display: none; }
+.login-err.show { display: block; }
+
+/* ── ADMIN PANEL ── */
+#adminPanel { display: none; }
+#adminPanel.show { display: block; }
+
+header {
+  background: white;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(61,190,110,0.15);
+}
+.logo-area { display: flex; align-items: center; gap: 10px; }
+.logo-icon { width: 38px; height: 38px; background: var(--green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.logo-text { font-family: 'Pacifico', cursive; font-size: 20px; color: var(--green); }
+.logo-sub { font-size: 10px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; }
+
+.live-pill {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-size: 11px; font-weight: 900;
+  padding: 6px 12px;
+  border-radius: 50px;
+}
+.live-dot {
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: blink 1.2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 16px 14px 8px;
+}
+.stat-box {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 10px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.stat-num { font-size: 26px; font-weight: 900; color: var(--green); }
+.stat-label { font-size: 10px; font-weight: 800; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 6px;
+  padding: 4px 14px 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex-shrink: 0;
+  border: none;
+  background: white;
+  border-radius: 50px;
+  padding: 8px 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  color: var(--text-light);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  transition: all 0.2s;
+}
+.tab-btn.active { background: var(--green); color: white; box-shadow: 0 3px 12px rgba(61,190,110,0.35); }
+
+/* Orders */
+.orders-wrap { padding: 0 14px 80px; }
+
+.o-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 10px;
+  border-left: 5px solid #ddd;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: border-color 0.3s, background 0.3s;
+  animation: cardIn 0.3s ease;
+}
+@keyframes cardIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.o-card.status-new  { border-left-color: #f0c040; }
+.o-card.status-prep { border-left-color: #3DBE6E; }
+.o-card.status-camino    { border-left-color: #b07dd4; }
+.o-card.status-done,
+.o-card.status-entregado { border-left-color: #80b8ef; opacity: 0.75; }
+
+.o-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+.o-name { font-weight: 900; font-size: 15px; }
+.o-time { font-size: 11px; font-weight: 700; color: var(--text-light); }
+.o-detail { font-size: 12px; color: var(--text-light); font-weight: 600; margin-bottom: 3px; }
+.o-items { font-size: 13px; font-weight: 700; color: var(--text); margin: 6px 0 4px; }
+.o-total { font-size: 14px; font-weight: 900; color: var(--green); margin-bottom: 10px; }
+
+.o-status-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.o-s-btn {
+  font-size: 12px; padding: 6px 12px; border-radius: 50px;
+  border: 2px solid #ddd; background: white; cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-weight: 800;
+  transition: all 0.15s;
+}
+.o-s-btn:active { transform: scale(0.95); }
+.o-s-btn.active-new  { background: #fff3cd; border-color: #f0c040; color: #856404; }
+.o-s-btn.active-prep { background: #d4edda; border-color: #82c896; color: #155724; }
+.o-s-btn.active-done   { background: #cce5ff; border-color: #80b8ef; color: #004085; }
+.o-s-btn.active-camino { background: #e8d5f7; border-color: #b07dd4; color: #5b2d8e; }
+.o-del-btn {
+  margin-left: auto;
+  font-size: 18px;
+  background: none; border: none; cursor: pointer;
+  padding: 4px 6px; border-radius: 8px;
+  transition: background 0.15s;
+}
+.o-del-btn:active { background: #ffe0e0; }
+
+.no-orders { text-align: center; padding: 60px 0; color: var(--text-light); font-weight: 700; font-size: 15px; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  background: var(--text);
+  color: white;
+  padding: 12px 22px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 800;
+  z-index: 999;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.green { background: var(--green); }
+
+/* New order alert banner */
+.alert-banner {
+  background: var(--green);
+  color: white;
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 900;
+  display: none;
+  animation: slideDown 0.3s ease;
+}
+.alert-banner.show { display: block; }
+@keyframes slideDown { from{transform:translateY(-100%)} to{transform:translateY(0)} }
+
+.spinner { width: 32px; height: 32px; border: 3px solid #e0ede4; border-top-color: var(--green); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 50px auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Sound toggle */
+.sound-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: 18px; padding: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══════════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">momochi 🍡</div>
+    <div class="login-sub">Panel de administración</div>
+    <label class="login-label">🔑 Contraseña</label>
+    <input type="password" class="login-input" id="pinInput" placeholder="••••" maxlength="20"
+      onkeydown="if(event.key==='Enter') checkPin()" />
+    <button class="login-btn" onclick="checkPin()">Entrar al panel</button>
+    <div class="login-err" id="loginErr">❌ Contraseña incorrecta</div>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══════════════════════════════════════════ -->
+<div id="adminPanel">
+  <div class="alert-banner" id="alertBanner">🍡 ¡Nuevo pedido recibido!</div>
+
+  <header>
+    <div class="logo-area">
+      <div class="logo-icon">🍡</div>
+      <div>
+        <div class="logo-text">momochi</div>
+        <div class="logo-sub">Admin</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="sound-btn" id="soundBtn" onclick="toggleSound()" title="Sonido">🔔</button>
+      <div class="live-pill"><div class="live-dot"></div> EN VIVO</div>
+    </div>
+  </header>
+
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-num" id="statNuevos">0</div>
+      <div class="stat-label">Nuevos</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="statPrep">0</div>
+      <div class="stat-label">En prep.</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="statIngresos">$0</div>
+      <div class="stat-label">Ingresos</div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tab-todos"     onclick="setTab('todos')">Todos</button>
+    <button class="tab-btn"        id="tab-new"       onclick="setTab('new')">🟡 Nuevos</button>
+    <button class="tab-btn"        id="tab-prep"      onclick="setTab('prep')">🟢 En prep.</button>
+    <button class="tab-btn"        id="tab-camino"    onclick="setTab('camino')">🛵 En camino</button>
+    <button class="tab-btn"        id="tab-entregado" onclick="setTab('entregado')">🔵 Entregados</button>
+  </div>
+
+  <div class="orders-wrap" id="ordersWrap">
+    <div class="spinner"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+// ── CONFIG ──────────────────────────────────────────
+const ADMIN_PASS = 'momochi2025';   // ← cambia esta clave cuando quieras
+const firebaseConfig = { databaseURL: "https://momochi-pedidos-8f93f-default-rtdb.firebaseio.com" };
+
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
+let pedidosMap = {};
+let activeTab  = 'todos';
+let soundOn    = true;
+let initialized = false;
+
+// ── LOGIN ────────────────────────────────────────────
+window.checkPin = () => {
+  const val = document.getElementById('pinInput').value;
+  if (val === ADMIN_PASS) {
+    document.getElementById('loginScreen').classList.add('hide');
+    document.getElementById('adminPanel').classList.add('show');
+    startListening();
+  } else {
+    document.getElementById('loginErr').classList.add('show');
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinInput').focus();
+    setTimeout(() => document.getElementById('loginErr').classList.remove('show'), 2500);
+  }
+};
+
+// ── LISTENER ─────────────────────────────────────────
+function startListening() {
+  onValue(ref(db, 'pedidos'), snap => {
+    const data = snap.val() || {};
+    const prevNuevos = Object.values(pedidosMap).filter(p => p.status === 'new').length;
+    pedidosMap = data;
+    const nuevos = Object.values(data).filter(p => p.status === 'new').length;
+
+    if (initialized && nuevos > prevNuevos) {
+      showAlert();
+      if (soundOn) playBeep();
+    }
+    initialized = true;
+
+    updateStats();
+    renderOrders();
+  });
+}
+
+// ── STATS ─────────────────────────────────────────────
+function updateStats() {
+  const all    = Object.values(pedidosMap);
+  const nuevos = all.filter(p => p.status === 'new').length;
+  const prep   = all.filter(p => p.status === 'prep').length;
+  const ingresos = all.reduce((a, p) => a + (p.items||[]).reduce((s,i)=>s+(i.qty*4500),0), 0);
+  document.getElementById('statNuevos').textContent   = nuevos;
+  document.getElementById('statPrep').textContent     = prep;
+  document.getElementById('statIngresos').textContent = '$' + ingresos.toLocaleString('es-CO');
+}
+
+// ── RENDER ────────────────────────────────────────────
+function renderOrders() {
+  let entries = Object.entries(pedidosMap).sort(([,a],[,b]) => b.ts - a.ts);
+  if (activeTab !== 'todos') entries = entries.filter(([,p]) => p.status === activeTab);
+
+  const wrap = document.getElementById('ordersWrap');
+  if (!entries.length) {
+    wrap.innerHTML = `<div class="no-orders">📭 ${activeTab === 'todos' ? 'Aún no hay pedidos' : 'Sin pedidos en esta categoría'}</div>`;
+    return;
+  }
+
+  wrap.innerHTML = entries.map(([key, p]) => `
+    <div class="o-card status-${p.status}" id="ocard-${key}">
+      <div class="o-top">
+        <div class="o-name">👤 ${p.nombre}</div>
+        <div class="o-time">${p.hora || ''}</div>
+      </div>
+      <div class="o-detail">📍 ${p.dir}</div>
+      <div class="o-detail">📱 ${p.tel}</div>
+      ${p.nota ? `<div class="o-detail">📝 ${p.nota}</div>` : ''}
+      <div class="o-items">${(p.items||[]).map(i=>`${i.emoji} ${i.nombre} ×${i.qty}`).join(' · ')}</div>
+      <div class="o-total">💰 $${(p.total||0).toLocaleString('es-CO')} · ${p.pago} · 🍡 ${(p.items||[]).reduce((a,i)=>a+i.qty,0)} mochis</div>
+      <div class="o-status-row">
+        <button class="o-s-btn ${p.status==='new'?'active-new':''}"       onclick="window._setStatus('${key}','new')">📋 Nuevo</button>
+        <button class="o-s-btn ${p.status==='prep'?'active-prep':''}"      onclick="window._setStatus('${key}','prep')">🍡 Preparando</button>
+        <button class="o-s-btn ${p.status==='camino'?'active-camino':''}"  onclick="window._setStatus('${key}','camino')">🛵 En camino</button>
+        <button class="o-s-btn ${p.status==='entregado'?'active-done':''}" onclick="window._setStatus('${key}','entregado')">✅ Entregado</button>
+        <button class="o-del-btn" onclick="window._del('${key}')">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+// ── ACTIONS ──────────────────────────────────────────
+window._setStatus = (key, status) => {
+  update(ref(db, 'pedidos/' + key), { status });
+  const labels = {new:'📋 Marcado: Nuevo', prep:'🍡 Marcado: Preparando', camino:'🛵 Marcado: En camino', entregado:'✅ Marcado: Entregado'};
+  showToast(labels[status]||'Actualizado');
+};
+
+window._del = key => {
+  if (confirm('¿Eliminar este pedido?')) {
+    remove(ref(db, 'pedidos/' + key));
+    showToast('🗑️ Pedido eliminado');
+  }
+};
+
+// ── TABS ─────────────────────────────────────────────
+window.setTab = tab => {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById('tab-' + tab);
+  if(el) el.classList.add('active');
+  renderOrders();
+};
+
+// ── SOUND ─────────────────────────────────────────────
+window.toggleSound = () => {
+  soundOn = !soundOn;
+  document.getElementById('soundBtn').textContent = soundOn ? '🔔' : '🔕';
+  showToast(soundOn ? '🔔 Sonido activado' : '🔕 Sonido silenciado');
+};
+
+function playBeep() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [523, 659, 784].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value = freq;
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.3, ctx.currentTime + i * 0.12);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.2);
+      osc.start(ctx.currentTime + i * 0.12);
+      osc.stop(ctx.currentTime + i * 0.12 + 0.2);
+    });
+  } catch(e) {}
+}
+
+// ── ALERT / TOAST ────────────────────────────────────
+function showAlert() {
+  const b = document.getElementById('alertBanner');
+  b.classList.add('show');
+  navigator.vibrate && navigator.vibrate([200,100,200,100,400]);
+  setTimeout(() => b.classList.remove('show'), 4000);
+}
+
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (type ? ' '+type : '') + ' show';
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+window.showToast = showToast;
+</script>
+</body>
+</html>
