@@ -6,10 +6,16 @@
 <title>Momochi Ice Cream 🍡</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
 <style>
+/* Tipografías oficiales del manual de uso de Momochi.
+   Coloca los archivos en la carpeta /fonts. Mientras no existan, se usan Nunito y Pacifico. */
+@font-face { font-family:'Biko'; src:url('fonts/Biko-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
+@font-face { font-family:'Biko'; src:url('fonts/Biko-Bold.otf') format('opentype'); font-weight:700; font-display:swap; }
+@font-face { font-family:'Biko'; src:url('fonts/Biko-Black.otf') format('opentype'); font-weight:900; font-display:swap; }
+@font-face { font-family:'Bohemy'; src:url('fonts/Bohemy-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
 :root {
-  --green: #3DBE6E;
-  --green-dark: #2a9e54;
-  --green-light: #e8f9ef;
+  --green: #40D093;
+  --green-dark: #2BB37A;
+  --green-light: #e8faf2;
   --text: #1a2e1f;
   --text-light: #5a7a62;
   --radius: 18px;
@@ -17,7 +23,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Biko', 'Nunito', sans-serif;
   background: #f0faf4;
   color: var(--text);
   min-height: 100vh;
@@ -28,33 +34,32 @@ body {
 .info-bar a { color:white; }
 header { background:white; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(61,190,110,.15); }
 .logo-area { display:flex; align-items:center; gap:10px; }
-.logo-icon { width:42px; height:42px; background:var(--green); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; }
-.logo-text { font-family:'Pacifico',cursive; font-size:22px; color:var(--green); }
+.logo-full { height:52px; width:auto; display:block; }
+.logo-text { font-family:'Biko','Nunito',sans-serif; font-weight:900; font-size:22px; color:var(--green); letter-spacing:-.3px; }
 .logo-sub { font-size:10px; font-weight:700; color:var(--text-light); letter-spacing:1.5px; text-transform:uppercase; }
 .hero { background:linear-gradient(160deg,var(--green) 0%,#2db562 100%); padding:28px 20px 32px; text-align:center; position:relative; overflow:hidden; }
 .hero::after { content:'🍡'; position:absolute; font-size:120px; opacity:.08; right:-20px; bottom:-20px; pointer-events:none; }
 .hero-tag { display:inline-block; background:rgba(255,255,255,.2); color:white; font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border-radius:50px; margin-bottom:12px; }
-.hero h1 { font-family:'Pacifico',cursive; font-size:30px; color:white; line-height:1.3; margin-bottom:8px; text-shadow:0 2px 8px rgba(0,0,0,.15); }
+.hero h1 { font-family:'Bohemy','Pacifico',cursive; font-size:30px; color:white; line-height:1.3; margin-bottom:8px; text-shadow:0 2px 8px rgba(0,0,0,.15); }
 .hero p { color:rgba(255,255,255,.9); font-size:14px; font-weight:600; }
 .step-label { display:flex; align-items:center; gap:10px; padding:20px 18px 10px; font-size:16px; font-weight:900; color:var(--text); }
 .step-num { background:var(--green); color:white; width:28px; height:28px; border-radius:50%; font-size:13px; font-weight:900; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .flavor-scroll { display:flex; flex-direction:column; gap:10px; padding:0 14px 8px; }
-.flavor-card { background:white; border-radius:var(--radius); display:flex; align-items:center; gap:14px; padding:14px; box-shadow:0 2px 12px rgba(61,190,110,.1); border:2.5px solid transparent; transition:border-color .2s; }
+.flavor-card { background:white; border-radius:var(--radius); display:flex; align-items:center; gap:10px; padding:9px 12px; box-shadow:0 2px 12px rgba(61,190,110,.1); border:2.5px solid transparent; transition:border-color .2s; }
 .flavor-card.selected { border-color:var(--green); }
-.flavor-dot { width:58px; height:58px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:30px; flex-shrink:0; }
+.flavor-dot { width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:21px; flex-shrink:0; }
 .flavor-info { flex:1; min-width:0; }
-.flavor-name { font-weight:900; font-size:15px; margin-bottom:2px; }
-.flavor-desc { font-size:11px; color:var(--text-light); font-weight:600; }
-.flavor-price { font-weight:900; font-size:13px; color:var(--green); margin-top:3px; }
+.flavor-name { font-weight:900; font-size:14px; margin-bottom:1px; }
+.flavor-price { font-weight:900; font-size:13px; color:var(--green); }
 .qty-control { display:flex; align-items:center; gap:8px; flex-shrink:0; }
-.qty-btn { width:36px; height:36px; border-radius:50%; border:2.5px solid var(--green); background:white; color:var(--green); font-size:22px; font-weight:900; cursor:pointer; display:flex; align-items:center; justify-content:center; padding-bottom:2px; -webkit-user-select:none; user-select:none; }
+.qty-btn { width:32px; height:32px; border-radius:50%; border:2.5px solid var(--green); background:white; color:var(--green); font-size:22px; font-weight:900; cursor:pointer; display:flex; align-items:center; justify-content:center; padding-bottom:2px; -webkit-user-select:none; user-select:none; }
 .qty-btn:active { background:var(--green); color:white; }
 .qty-num { font-weight:900; font-size:17px; min-width:22px; text-align:center; }
 .form-wrap { padding:0 14px; }
 .form-card { background:white; border-radius:var(--radius); padding:20px 16px; box-shadow:0 2px 12px rgba(61,190,110,.1); margin-bottom:12px; }
 label { display:block; font-weight:800; font-size:13px; color:var(--text); margin-bottom:7px; }
 .req { color:var(--green); }
-input, textarea { width:100%; padding:13px 15px; border:2px solid #e0ede4; border-radius:13px; font-family:'Nunito',sans-serif; font-size:15px; font-weight:600; color:var(--text); background:#fafffe; outline:none; transition:border-color .2s; -webkit-appearance:none; resize:none; margin-bottom:14px; }
+input, textarea { width:100%; padding:13px 15px; border:2px solid #e0ede4; border-radius:13px; font-family:'Biko','Nunito',sans-serif; font-size:15px; font-weight:600; color:var(--text); background:#fafffe; outline:none; transition:border-color .2s; -webkit-appearance:none; resize:none; margin-bottom:14px; }
 input:focus, textarea:focus { border-color:var(--green); }
 input:last-child, textarea:last-child { margin-bottom:0; }
 .pay-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
@@ -69,7 +74,7 @@ input:last-child, textarea:last-child { margin-bottom:0; }
 .s-total { border-top:2px solid rgba(61,190,110,.3); margin-top:8px; padding-top:8px; font-size:16px; font-weight:900; color:var(--green-dark); }
 .s-empty { text-align:center; font-size:13px; font-weight:700; color:var(--text-light); }
 .submit-wrap { padding:14px 14px 30px; }
-.submit-btn { width:100%; background:var(--green); color:white; border:none; border-radius:16px; padding:17px; font-family:'Nunito',sans-serif; font-size:17px; font-weight:900; cursor:pointer; box-shadow:0 6px 20px rgba(61,190,110,.4); display:flex; align-items:center; justify-content:center; gap:8px; }
+.submit-btn { width:100%; background:var(--green); color:white; border:none; border-radius:16px; padding:17px; font-family:'Biko','Nunito',sans-serif; font-size:17px; font-weight:900; cursor:pointer; box-shadow:0 6px 20px rgba(61,190,110,.4); display:flex; align-items:center; justify-content:center; gap:8px; }
 .submit-btn:active { opacity:.85; }
 .submit-btn:disabled { opacity:.6; cursor:not-allowed; }
 footer { background:var(--text); color:rgba(255,255,255,.6); text-align:center; padding:24px 16px; font-size:12px; font-weight:600; }
@@ -80,7 +85,7 @@ footer strong { color:white; }
 #trackingScreen.show { display:block; }
 #orderForm.hide { display:none; }
 .track-header { text-align:center; margin-bottom:24px; }
-.track-logo { font-family:'Pacifico',cursive; font-size:26px; color:var(--green); margin-bottom:4px; }
+.track-logo { font-family:'Bohemy','Pacifico',cursive; font-size:26px; color:var(--green); margin-bottom:4px; }
 .track-title { font-size:20px; font-weight:900; margin-bottom:4px; }
 .track-sub { font-size:13px; color:var(--text-light); font-weight:600; }
 .track-card { background:white; border-radius:20px; padding:20px; box-shadow:0 4px 20px rgba(61,190,110,.12); margin-bottom:14px; }
@@ -111,10 +116,10 @@ footer strong { color:white; }
 .link-title { font-size:12px; font-weight:800; color:var(--text-light); margin-bottom:8px; text-transform:uppercase; letter-spacing:.5px; }
 .link-box { display:flex; align-items:center; gap:8px; background:#f0faf4; border-radius:10px; padding:10px 12px; }
 .link-url { font-size:11px; font-weight:700; color:var(--green-dark); flex:1; word-break:break-all; }
-.link-copy { background:var(--green); color:white; border:none; border-radius:8px; padding:7px 12px; font-family:'Nunito',sans-serif; font-size:12px; font-weight:800; cursor:pointer; white-space:nowrap; flex-shrink:0; }
+.link-copy { background:var(--green); color:white; border:none; border-radius:8px; padding:7px 12px; font-family:'Biko','Nunito',sans-serif; font-size:12px; font-weight:800; cursor:pointer; white-space:nowrap; flex-shrink:0; }
 .link-copy:active { opacity:.8; }
 
-.new-order-btn { width:100%; background:var(--green); color:white; border:none; border-radius:14px; padding:15px; font-family:'Nunito',sans-serif; font-size:16px; font-weight:900; cursor:pointer; box-shadow:0 4px 16px rgba(61,190,110,.3); }
+.new-order-btn { width:100%; background:var(--green); color:white; border:none; border-radius:14px; padding:15px; font-family:'Biko','Nunito',sans-serif; font-size:16px; font-weight:900; cursor:pointer; box-shadow:0 4px 16px rgba(61,190,110,.3); }
 .spinner-sm { width:20px; height:20px; border:2.5px solid rgba(255,255,255,.4); border-top-color:white; border-radius:50%; animation:spin .7s linear infinite; display:inline-block; vertical-align:middle; }
 @keyframes spin { to { transform:rotate(360deg); } }
 .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(120%); background:var(--text); color:white; padding:11px 22px; border-radius:50px; font-size:13px; font-weight:800; z-index:999; transition:transform .3s cubic-bezier(.16,1,.3,1); white-space:nowrap; }
@@ -125,20 +130,15 @@ footer strong { color:white; }
 
 <!-- ══ FORMULARIO ══════════════════════════════════════ -->
 <div id="orderForm">
-  <div class="info-bar">🕐 12pm–9pm · Montería · <a href="https://wa.me/573104401704">WhatsApp</a></div>
+  <div class="info-bar">🕐 11:30am–8:00pm · Montería · <a href="https://wa.me/573104401704">WhatsApp</a></div>
   <header>
     <div class="logo-area">
-      <div class="logo-icon">🍡</div>
-      <div>
-        <div class="logo-text">momochi</div>
-        <div class="logo-sub">Ice Cream</div>
-      </div>
+      <img src="assets/logo-momochi.png" alt="Momochi Ice Cream" class="logo-full">
     </div>
   </header>
   <div class="hero">
     <div class="hero-tag">🛵 Domicilios en Montería</div>
     <h1>Pide tu Momochi<br>favorito 🍡</h1>
-    <p>Helados con cobertura de arroz glutinoso · Únicos en la ciudad</p>
   </div>
   <div class="step-label"><div class="step-num">1</div> Elige tus sabores</div>
   <div class="flavor-scroll" id="flavorGrid"></div>
@@ -152,7 +152,7 @@ footer strong { color:white; }
       <label>📍 Dirección <span class="req">*</span></label>
       <input type="text" id="direccion" placeholder="Barrio, calle, número, referencia..." />
       <label>💬 Nota (opcional)</label>
-      <textarea id="nota" rows="2" placeholder="Sin azúcar, timbre 2, etc."></textarea>
+      <textarea id="nota" rows="2" placeholder="Ej: casa, apartamento, etc."></textarea>
     </div>
     <div class="step-label" style="padding:14px 4px 10px"><div class="step-num">3</div> Método de pago</div>
     <div class="form-card">
@@ -238,19 +238,18 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = { databaseURL: "https://momochi-pedidos-8f93f-default-rtdb.firebaseio.com" };
-const PRECIO  = 4500;
+const PRECIO  = 6500;
 const DOMICILIO = 6000;
 const WA_NUM  = '573104401704';
 const BASE_URL = window.location.origin + window.location.pathname.replace(/\/$/, '');
 
 const SABORES = [
-  { id:'cookies',    nombre:'Cookies and Cream', emoji:'⚫', desc:'Clásico irresistible',  bg:'#f3f0ff', border:'#7c5cbf' },
-  { id:'frutos',     nombre:'Frutos Rojos',      emoji:'🔴', desc:'Intenso y frutal',      bg:'#fff0f0', border:'#e05555' },
-  { id:'lulo',       nombre:'Lulo',              emoji:'🟢', desc:'Fresco y colombiano',   bg:'#f0fff4', border:'#3DBE6E' },
-  { id:'maracuya',   nombre:'Maracuyá',          emoji:'🟡', desc:'Tropical y vibrante',   bg:'#fffbea', border:'#e8b84b' },
-  { id:'arequipe',   nombre:'Arequipe',          emoji:'🟠', desc:'Dulce y cremoso',       bg:'#fff5ec', border:'#e07a2f' },
-  { id:'macadamia',  nombre:'Macadamia',         emoji:'🟤', desc:'Suave y especial',      bg:'#fdf6ee', border:'#c18a5a' },
-  { id:'tresleches', nombre:'Tres Leches',       emoji:'🤍', desc:'Cremoso y delicado',    bg:'#f8f8f8', border:'#b0b0b0' },
+  { id:'cookies',    nombre:'Cookies and Cream', emoji:'⚫',  bg:'#f3f0ff', border:'#7c5cbf' },
+  { id:'frutos',     nombre:'Frutos Rojos',      emoji:'🔴',      bg:'#fff0f0', border:'#e05555' },
+  { id:'lulo',       nombre:'Lulo',              emoji:'🟢',   bg:'#f0fff4', border:'#3DBE6E' },
+  { id:'maracuya',   nombre:'Maracuyá',          emoji:'🟡',   bg:'#fffbea', border:'#e8b84b' },
+  { id:'macadamia',  nombre:'Macadamia',         emoji:'🟤',      bg:'#fdf6ee', border:'#c18a5a' },
+  { id:'tresleches', nombre:'Tres Leches',       emoji:'🤍',    bg:'#f8f8f8', border:'#b0b0b0' },
 ];
 
 const STEPS = ['new','prep','camino','entregado'];
@@ -279,7 +278,6 @@ function renderFlavors() {
       <div class="flavor-dot" style="background:${s.bg};border:2.5px solid ${s.border}">${s.emoji}</div>
       <div class="flavor-info">
         <div class="flavor-name">${s.nombre}</div>
-        <div class="flavor-desc">${s.desc}</div>
         <div class="flavor-price">$${PRECIO.toLocaleString('es-CO')} c/u</div>
       </div>
       <div class="qty-control">
@@ -339,23 +337,17 @@ window.enviarPedido = async () => {
   btn.disabled=true;
   btn.innerHTML='<span class="spinner-sm"></span> Enviando…';
 
-  // 1. Guardar en Firebase
-  let newKey;
+  // 1. Guardar en Firebase (si falla, el pedido igual se manda por WhatsApp)
+  let newKey = null;
   try {
     const r = await push(ref(db,'pedidos'), pedido);
     newKey = r.key;
   } catch(e) {
-    alert('Error de conexión. Intenta de nuevo.');
-    btn.disabled=false; btn.textContent='🚀 Enviar pedido por WhatsApp';
-    return;
+    console.error('No se pudo guardar el pedido:', e);
   }
 
-  // 2. Link de seguimiento
-  const trackLink = `${BASE_URL}#seguimiento=${newKey}`;
-  document.getElementById('trackingUrl').textContent = trackLink;
-  window.history.replaceState(null,'',`#seguimiento=${newKey}`);
-
-  // 3. WhatsApp al negocio (con el link incluido)
+  // 2. Mensaje con todo lo que llenó el cliente
+  const trackLink = newKey ? `${BASE_URL}#seguimiento=${newKey}` : '';
   const msg =
     `🍡 *NUEVO PEDIDO MOMOCHI*\n\n`+
     `👤 *Cliente:* ${nombre}\n`+
@@ -368,13 +360,20 @@ window.enviarPedido = async () => {
     `💵 *Total:* $${total().toLocaleString('es-CO')}\n`+
     `💳 *Pago:* ${pagoText}\n`+
     (nota?`📝 *Nota:* ${nota}\n`:'')+
-    `⏰ ${now.toLocaleString('es-CO')}\n\n`+
-    `🔗 *Seguimiento del cliente:*\n${trackLink}`;
+    `⏰ ${now.toLocaleString('es-CO')}`+
+    (trackLink?`\n\n🔗 *Seguimiento del cliente:*\n${trackLink}`:'');
+
+  // 3. Mostrar el enlace de seguimiento al cliente
+  if (newKey) {
+    document.getElementById('trackingUrl').textContent = trackLink;
+    window.history.replaceState(null,'',`#seguimiento=${newKey}`);
+    showTracking(pedido, newKey);
+  }
+
+  // 4. Abrir WhatsApp de Momochi con el pedido
   window.location.href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`;
 
-  // 4. Mostrar tracking
-  showTracking(pedido, newKey);
-  startTracking(newKey);
+  if (newKey) startTracking(newKey);
 };
 
 // ── TRACKING ─────────────────────────────────────────
