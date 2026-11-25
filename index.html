@@ -363,6 +363,7 @@ window.enviarPedido = async () => {
 
   // 2. Mensaje con todo lo que llenó el cliente
   const trackLink = newKey ? `${BASE_URL}#seguimiento=${newKey}` : '';
+  const grupos = Math.floor(units()/PROMO.cant), sueltos = units()%PROMO.cant;
   const msg =
     `🍡 *NUEVO PEDIDO momochi*\n\n`+
     `👤 *Cliente:* ${nombre}\n`+
@@ -370,8 +371,9 @@ window.enviarPedido = async () => {
     `📍 *Dirección:* ${dir}\n\n`+
     `🛒 *Pedido:*\n`+
     items.map(s=>`  ${s.emoji} ${s.nombre} × ${cantidades[s.id]}`).join('\n')+
-    `\n\n💰 *Mochis:* $${precioMochis(units()).toLocaleString('es-CO')}`+
-    (Math.floor(units()/PROMO.cant)?` (promo: ${Math.floor(units()/PROMO.cant)} × ${PROMO.cant} mochis)`:'')+`\n`+
+    `\n\n`+
+    (grupos?`${grupos>1?grupos+' ':''}Promo x${PROMO.cant} = $${(grupos*PROMO.precio).toLocaleString('es-CO')}\n`:'')+
+    (sueltos?`${sueltos} mochi${sueltos>1?'s':''} individual${sueltos>1?'es':''} × $${PRECIO.toLocaleString('es-CO')} = $${(sueltos*PRECIO).toLocaleString('es-CO')}\n`:'')+
     `💵 *Total sin domicilio:* $${total().toLocaleString('es-CO')}\n`+
     `💳 *Pago:* ${pagoText}\n`+
     (nota?`📝 *Nota:* ${nota}\n`:'')+
