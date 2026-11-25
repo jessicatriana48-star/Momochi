@@ -308,10 +308,11 @@ function updateSummary(){
   if(!items.length){box.innerHTML='<div class="s-empty">Selecciona tus sabores arriba</div>';return;}
   const n = units();
   const grupos = Math.floor(n/PROMO.cant), sueltos = n%PROMO.cant;
-  const promoTxt = grupos ? `Promo ${grupos} × ${PROMO.cant} mochis = $${(grupos*PROMO.precio).toLocaleString('es-CO')}` : '';
+  const promoTxt = grupos ? `Promo x${PROMO.cant}${grupos>1?' × '+grupos:''} = $${(grupos*PROMO.precio).toLocaleString('es-CO')}` : '';
   const sueltosTxt = sueltos ? `${sueltos} mochi${sueltos>1?'s':''} individual${sueltos>1?'es':''} × $${PRECIO.toLocaleString('es-CO')}` : '';
   box.innerHTML = items.map(s=>`<div class="s-row"><span>${s.nombre} × ${cantidades[s.id]}</span></div>`).join('')
     +(promoTxt?`<div class="s-row"><span>${promoTxt}</span></div>`:'')
+    +(sueltosTxt?`<div class="s-row"><span>${sueltosTxt}</span></div>`:'')
     +`<div class="s-row s-total"><span>Total</span><span>$${total().toLocaleString('es-CO')}</span></div>`;
 }
 window.selectPago = tipo => {
