@@ -313,7 +313,7 @@ function updateSummary(){
   box.innerHTML = items.map(s=>`<div class="s-row"><span>${s.nombre} × ${cantidades[s.id]}</span></div>`).join('')
     +(promoTxt?`<div class="s-row"><span>${promoTxt}</span></div>`:'')
     +(sueltosTxt?`<div class="s-row"><span>${sueltosTxt}</span><span>$${(sueltos*PRECIO).toLocaleString('es-CO')}</span></div>`:'')
-    +`<div class="s-row s-total"><span>Total (${units()} mochis + domicilio)</span><span>$${total().toLocaleString('es-CO')}</span></div>`;
+    +`<div class="s-row s-total"><span>Total</span><span>$${total().toLocaleString('es-CO')}</span></div>`;
 }
 window.selectPago = tipo => {
   pago=tipo;
