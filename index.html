@@ -309,7 +309,7 @@ function updateSummary(){
   const n = units();
   const grupos = Math.floor(n/PROMO.cant), sueltos = n%PROMO.cant;
   const promoTxt = grupos ? `${grupos>1?grupos+' ':''}Promo x${PROMO.cant} = $${(grupos*PROMO.precio).toLocaleString('es-CO')}` : '';
-  const sueltosTxt = sueltos ? `${sueltos} mochi${sueltos>1?'s':''} individual${sueltos>1?'es':''} = $${(sueltos*PRECIO).toLocaleString('es-CO')}` : '';
+  const sueltosTxt = sueltos ? `${sueltos} mochi${sueltos>1?'s':''} individual${sueltos>1?'es':''} × $${PRECIO.toLocaleString('es-CO')} = $${(sueltos*PRECIO).toLocaleString('es-CO')}` : '';
   box.innerHTML = items.map(s=>`<div class="s-row"><span>${s.nombre} × ${cantidades[s.id]}</span></div>`).join('')
     +(promoTxt?`<div class="s-row"><span>${promoTxt}</span></div>`:'')
     +(sueltosTxt?`<div class="s-row"><span>${sueltosTxt}</span></div>`:'')
