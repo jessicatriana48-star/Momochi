@@ -44,6 +44,7 @@ header { background:white; padding:12px 18px; display:flex; align-items:center; 
 .hero p { color:rgba(255,255,255,.9); font-size:14px; font-weight:600; }
 .step-label { display:flex; align-items:center; gap:10px; padding:20px 18px 10px; font-size:16px; font-weight:900; color:var(--text); }
 .step-num { background:var(--green); color:white; width:28px; height:28px; border-radius:50%; font-size:13px; font-weight:900; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.verifica-hint { font-size:12px; font-weight:700; color:var(--text-light); text-align:center; margin:12px 0 10px; }
 .ubicacion-hint { font-size:12px; font-weight:800; color:var(--green-dark); margin:-6px 0 0; }
 .promo-banner { margin:0 14px 10px; background:var(--green-light); border:2px dashed var(--green); color:var(--green-dark); border-radius:14px; padding:10px 12px; text-align:center; font-weight:900; font-size:14px; }
 .flavor-scroll { display:flex; flex-direction:column; gap:10px; padding:0 14px 8px; }
@@ -167,7 +168,7 @@ footer strong { color:white; }
           <div class="pay-icon">💵</div><div class="pay-label">Efectivo</div>
         </div>
         <div class="pay-opt" id="pay-digital" onclick="selectPago('digital')">
-          <div class="pay-icon">📲</div><div class="pay-label">Nequi / Daviplata</div>
+          <div class="pay-icon">📲</div><div class="pay-label">Transferencia</div>
         </div>
       </div>
       <div class="summary">
@@ -177,6 +178,7 @@ footer strong { color:white; }
     </div>
   </div>
   <div class="submit-wrap">
+    <p class="verifica-hint">Verificaremos si los sabores que elegiste están disponibles antes de confirmar tu pedido.</p>
     <button class="submit-btn" id="submitBtn" onclick="enviarPedido()">Enviar pedido a WhatsApp</button>
   </div>
   <footer>
@@ -336,7 +338,7 @@ window.enviarPedido = async () => {
   if(!pago)  {alert('Selecciona método de pago 💳');return;}
 
   const items    = SABORES.filter(s=>(cantidades[s.id]||0)>0);
-  const pagoText = pago==='efectivo'?'💵 Efectivo':'📲 Nequi / Daviplata';
+  const pagoText = pago==='efectivo'?'💵 Efectivo':'📲 Transferencia';
   const now      = new Date();
   const pedido   = {
     nombre,tel,dir,nota,
