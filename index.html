@@ -372,7 +372,7 @@ window.enviarPedido = async () => {
     items.map(s=>`  ${s.emoji} ${s.nombre} × ${cantidades[s.id]}`).join('\n')+
     `\n\n💰 *Mochis:* $${precioMochis(units()).toLocaleString('es-CO')}`+
     (Math.floor(units()/PROMO.cant)?` (promo: ${Math.floor(units()/PROMO.cant)} × ${PROMO.cant} mochis)`:'')+`\n`+
-    `💵 *Total:* $${total().toLocaleString('es-CO')}\n`+
+    `💵 *Total sin domicilio:* $${total().toLocaleString('es-CO')}\n`+
     `💳 *Pago:* ${pagoText}\n`+
     (nota?`📝 *Nota:* ${nota}\n`:'')+
     `⏰ ${now.toLocaleString('es-CO')}`+
