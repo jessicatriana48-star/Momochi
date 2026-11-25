@@ -140,6 +140,7 @@ footer strong { color:white; }
     </div>
   </header>
   <div class="hero">
+    <div class="hero-tag">🛵 Domicilios en Montería</div>
     <h1>Pide tu momochi<br>favorito</h1>
   </div>
   <div class="step-label"><div class="step-num">1</div> Elige tus sabores</div>
@@ -244,7 +245,6 @@ const firebaseConfig = { databaseURL: "https://momochi-pedidos-8f93f-default-rtd
 const PRECIO  = 6500;
 const PROMO   = { cant:4, precio:22000 };   // 4 mochis por $22.000
 const precioMochis = n => Math.floor(n/PROMO.cant)*PROMO.precio + (n%PROMO.cant)*PRECIO;
-const DOMICILIO = 6000;
 const WA_NUM  = '573104401704';
 const BASE_URL = window.location.origin + window.location.pathname.replace(/\/$/, '');
 
@@ -301,7 +301,7 @@ window._c = (id, d) => {
   updateSummary();
 };
 const units = () => Object.values(cantidades).reduce((a,b)=>a+b,0);
-const total = () => precioMochis(units()) + (units()>0 ? DOMICILIO : 0);
+const total = () => precioMochis(units());
 function updateSummary(){
   const items = SABORES.filter(s=>(cantidades[s.id]||0)>0);
   const box = document.getElementById('summaryItems');
@@ -313,7 +313,6 @@ function updateSummary(){
   box.innerHTML = items.map(s=>`<div class="s-row"><span>${s.emoji} ${s.nombre} × ${cantidades[s.id]}</span></div>`).join('')
     +(promoTxt?`<div class="s-row"><span>${promoTxt}</span></div>`:'')
     +(sueltosTxt?`<div class="s-row"><span>${sueltosTxt}</span><span>$${(sueltos*PRECIO).toLocaleString('es-CO')}</span></div>`:'')
-    +`<div class="s-row"><span>🛵 Domicilio</span><span>$${DOMICILIO.toLocaleString('es-CO')}</span></div>`
     +`<div class="s-row s-total"><span>Total (${units()} mochis + domicilio)</span><span>$${total().toLocaleString('es-CO')}</span></div>`;
 }
 window.selectPago = tipo => {
@@ -369,7 +368,6 @@ window.enviarPedido = async () => {
     items.map(s=>`  ${s.emoji} ${s.nombre} × ${cantidades[s.id]}`).join('\n')+
     `\n\n💰 *Mochis:* $${precioMochis(units()).toLocaleString('es-CO')}`+
     (Math.floor(units()/PROMO.cant)?` (promo: ${Math.floor(units()/PROMO.cant)} × ${PROMO.cant} mochis)`:'')+`\n`+
-    `🛵 *Domicilio:* $${DOMICILIO.toLocaleString('es-CO')}\n`+
     `💵 *Total:* $${total().toLocaleString('es-CO')}\n`+
     `💳 *Pago:* ${pagoText}\n`+
     (nota?`📝 *Nota:* ${nota}\n`:'')+
