@@ -175,7 +175,7 @@ footer strong { color:white; }
     </div>
   </div>
   <div class="submit-wrap">
-    <button class="submit-btn" id="submitBtn" onclick="enviarPedido()">🚀 Enviar pedido por WhatsApp</button>
+    <button class="submit-btn" id="submitBtn" onclick="enviarPedido()">Enviar pedido a WhatsApp</button>
   </div>
   <footer>
     <strong>Momochi Ice Cream</strong> · Montería, Córdoba 🇨🇴<br>
@@ -455,7 +455,7 @@ window.nuevosPedido = () => {
   document.querySelectorAll('.pay-opt').forEach(el=>el.classList.remove('selected'));
   updateSummary();
   const btn=document.getElementById('submitBtn');
-  btn.disabled=false; btn.textContent='🚀 Enviar pedido por WhatsApp';
+  btn.disabled=false; btn.textContent='Enviar pedido a WhatsApp';
   document.getElementById('orderForm').classList.remove('hide');
   document.getElementById('trackingScreen').classList.remove('show');
   window.history.replaceState(null,'',window.location.pathname);
